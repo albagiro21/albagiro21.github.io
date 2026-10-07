@@ -152,9 +152,11 @@
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
           <h3><span lang="es">Asistente que sugiere acciones de mejora ante un incidente</span><span lang="en">Assistant that suggests improvement actions for an incident</span></h3>
-          <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 300 descripciones históricas y propone acciones basadas en ellos. Los embeddings y la búsqueda corren en local.</p>
-          <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 300 historical descriptions and suggests actions grounded in them. Embeddings and retrieval run locally.</p>
-          <p class="stack">RAG, ChromaDB, Ollama, Dash, Python</p>
+          <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 1000 descripciones históricas y propone acciones de mejora basadas en ellos.</p>
+          <p lang="es">La búsqueda es semántica, por similitud de vectores: cada descripción se convierte en un embedding y se recuperan las más cercanas en significado al incidente nuevo. Esos casos se pasan al LLM como contexto. Los embeddings y la búsqueda corren en local.</p>
+          <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 1000 historical descriptions and suggests improvement actions grounded in them.</p>
+          <p lang="en">Retrieval is semantic, by vector similarity: each description is turned into an embedding and the ones closest in meaning to the new incident are retrieved. Those cases are passed to the LLM as context. Embeddings and retrieval run locally.</p>
+          <p class="stack">RAG, ChromaDB, Ollama (nomic-embed-text), Dash, Python</p>
           <div class="shot"><img src="img/asistente-incidentes.png" alt="Captura del asistente de incidentes" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
         </article>
         <article class="project">
