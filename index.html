@@ -99,6 +99,12 @@
   .d-bar { fill: var(--cream); }
   .d-t { font-weight: 900; font-size: 16px; letter-spacing: -0.03em; }
   .d-s { font-size: 13px; }
+  .c-ax { font-size: 11px; }
+  .c-grid { stroke: var(--ink); stroke-opacity: 0.15; }
+  .c-div { stroke: var(--ink); stroke-dasharray: 2 4; }
+  .c-hist, .c-fc { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+  .c-fc { stroke-dasharray: 5 5; }
+  .c-band { fill: var(--circle); fill-opacity: 0.5; }
   .d-frame { fill: none; stroke: var(--cream); stroke-width: 1.5; stroke-dasharray: 5 5; }
   .diagram .d-l { fill: var(--cream); font-weight: 700; font-size: 13px; }
   .todo { border-bottom: 2px dashed currentColor; }
@@ -159,7 +165,32 @@
           <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 1000 historical descriptions and suggests improvement actions grounded in them.</p>
           <p lang="en">Retrieval is semantic, by vector similarity: each description is turned into an embedding and the ones closest in meaning to the new incident are retrieved. Those cases are passed to the LLM as context. Embeddings and retrieval run locally.</p>
           <p class="stack">RAG, ChromaDB, Ollama (nomic-embed-text), Dash, Python</p>
-          <div class="shot"><img src="img/asistente-incidentes.png" alt="Captura del asistente de incidentes" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
+          <div class="diagram">
+          <svg viewBox="0 0 400 278" role="img" aria-labelledby="ragTitle">
+            <title id="ragTitle">Flujo del asistente: incidente nuevo, embedding, búsqueda semántica, casos parecidos y acciones sugeridas</title>
+            <line class="d-line" x1="20" y1="23" x2="20" y2="255"/>
+            <circle class="d-dot" cx="20" cy="23" r="11"/>
+            <rect class="d-bar" x="48" y="0" width="352" height="46" rx="15"/>
+            <text class="d-t" x="64" y="20" lang="es">Incidente nuevo</text><text class="d-t" x="64" y="20" lang="en">New incident</text>
+            <text class="d-s" x="64" y="37" lang="es">Descripción en texto libre</text><text class="d-s" x="64" y="37" lang="en">Free-text description</text>
+            <circle class="d-dot" cx="20" cy="81" r="11"/>
+            <rect class="d-bar" x="48" y="58" width="352" height="46" rx="15"/>
+            <text class="d-t" x="64" y="78">Embedding</text>
+            <text class="d-s" x="64" y="95" lang="es">nomic-embed-text con Ollama</text><text class="d-s" x="64" y="95" lang="en">nomic-embed-text with Ollama</text>
+            <circle class="d-dot" cx="20" cy="139" r="11"/>
+            <rect class="d-bar" x="48" y="116" width="352" height="46" rx="15"/>
+            <text class="d-t" x="64" y="136" lang="es">Búsqueda semántica</text><text class="d-t" x="64" y="136" lang="en">Semantic search</text>
+            <text class="d-s" x="64" y="153" lang="es">ChromaDB, 1000 descripciones históricas</text><text class="d-s" x="64" y="153" lang="en">ChromaDB, 1000 historical descriptions</text>
+            <circle class="d-dot" cx="20" cy="197" r="11"/>
+            <rect class="d-bar" x="48" y="174" width="352" height="46" rx="15"/>
+            <text class="d-t" x="64" y="194" lang="es">Casos más parecidos</text><text class="d-t" x="64" y="194" lang="en">Most similar cases</text>
+            <text class="d-s" x="64" y="211" lang="es">Se pasan al LLM como contexto</text><text class="d-s" x="64" y="211" lang="en">Passed to the LLM as context</text>
+            <circle class="d-dot" cx="20" cy="255" r="11"/>
+            <rect class="d-bar" x="48" y="232" width="352" height="46" rx="15"/>
+            <text class="d-t" x="64" y="252" lang="es">Acciones de mejora sugeridas</text><text class="d-t" x="64" y="252" lang="en">Suggested improvement actions</text>
+            <text class="d-s" x="64" y="269" lang="es">Respuesta del LLM</text><text class="d-s" x="64" y="269" lang="en">LLM response</text>
+          </svg>
+        </div>
         </article>
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
@@ -167,7 +198,38 @@
           <p lang="es">Aplicación de varias páginas sobre un backend MySQL y Laravel. Un LLM local resume los datos de cada página. Desplegada con Docker detrás de Traefik, con dos vías de acceso: autenticación con Authelia e inicio de sesión único (SSO) mediante token.</p>
           <p lang="en">A multi-page application on a MySQL and Laravel backend. A local LLM summarises the data on each page. Deployed with Docker behind Traefik, with two ways in: authentication through Authelia and token-based single sign-on (SSO).</p>
           <p class="stack">Dash, MySQL, Ollama, Docker, Traefik, Authelia</p>
-          <div class="shot"><img src="img/app-control-calidad.png" alt="Captura de la aplicación de control de calidad" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Captura anonimizada</span><span lang="en">Anonymised screenshot</span></span></div>
+          <div class="diagram">
+          <svg viewBox="0 0 400 332" role="img" aria-labelledby="archTitle">
+            <title id="archTitle">Arquitectura: usuario, Traefik, autenticación y aplicación Dash, con MySQL y un LLM local detrás</title>
+            <rect class="d-frame" x="1" y="60" width="398" height="208" rx="20"/>
+            <text class="d-l" x="48" y="81" lang="es">Desplegado con Docker</text><text class="d-l" x="48" y="81" lang="en">Deployed with Docker</text>
+            <line class="d-line" x1="20" y1="23" x2="20" y2="231"/>
+            <line class="d-line" x1="132" y1="254" x2="132" y2="286"/>
+            <line class="d-line" x1="316" y1="254" x2="316" y2="286"/>
+            <circle class="d-dot" cx="20" cy="23" r="11"/>
+            <rect class="d-bar" x="48" y="0" width="352" height="46" rx="15"/>
+            <text class="d-t" x="64" y="20" lang="es">Usuario</text><text class="d-t" x="64" y="20" lang="en">User</text>
+            <text class="d-s" x="64" y="37" lang="es">Navegador</text><text class="d-s" x="64" y="37" lang="en">Browser</text>
+            <circle class="d-dot" cx="20" cy="115" r="11"/>
+            <rect class="d-bar" x="48" y="92" width="340" height="46" rx="15"/>
+            <text class="d-t" x="64" y="112">Traefik</text>
+            <text class="d-s" x="64" y="129" lang="es">Proxy inverso</text><text class="d-s" x="64" y="129" lang="en">Reverse proxy</text>
+            <circle class="d-dot" cx="20" cy="173" r="11"/>
+            <rect class="d-bar" x="48" y="150" width="340" height="46" rx="15"/>
+            <text class="d-t" x="64" y="170" lang="es">Autenticación</text><text class="d-t" x="64" y="170" lang="en">Authentication</text>
+            <text class="d-s" x="64" y="187" lang="es">Authelia o SSO por token</text><text class="d-s" x="64" y="187" lang="en">Authelia or token-based SSO</text>
+            <circle class="d-dot" cx="20" cy="231" r="11"/>
+            <rect class="d-bar" x="48" y="208" width="340" height="46" rx="15"/>
+            <text class="d-t" x="64" y="228" lang="es">Aplicación Dash</text><text class="d-t" x="64" y="228" lang="en">Dash application</text>
+            <text class="d-s" x="64" y="245" lang="es">Varias páginas</text><text class="d-s" x="64" y="245" lang="en">Multiple pages</text>
+            <rect class="d-bar" x="48" y="286" width="168" height="46" rx="15"/>
+            <text class="d-t" x="64" y="306">MySQL</text>
+            <text class="d-s" x="64" y="323" lang="es">Backend Laravel</text><text class="d-s" x="64" y="323" lang="en">Laravel backend</text>
+            <rect class="d-bar" x="232" y="286" width="168" height="46" rx="15"/>
+            <text class="d-t" x="248" y="306" lang="es">LLM local</text><text class="d-t" x="248" y="306" lang="en">Local LLM</text>
+            <text class="d-s" x="248" y="323" lang="es">Resúmenes con Ollama</text><text class="d-s" x="248" y="323" lang="en">Summaries with Ollama</text>
+          </svg>
+        </div>
         </article>
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
@@ -175,7 +237,26 @@
           <p lang="es">Pipelines de series temporales (Holt-Winters) que generan una previsión para cada centro sanitario. Corregí un desfase de un mes cambiando la lógica por posición de fila a lógica por fecha.</p>
           <p lang="en">Time-series pipelines (Holt-Winters) that produce a forecast for each healthcare centre. I fixed a one-month offset by replacing row-position logic with date-based logic.</p>
           <p class="stack">Python, SQL</p>
-          <div class="shot"><img src="img/prevision-centros.png" alt="Gráfico de previsión por centro" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Gráfico con datos sintéticos</span><span lang="en">Chart with synthetic data</span></span></div>
+          <div class="diagram">
+          <svg viewBox="0 0 400 250" role="img" aria-labelledby="fcTitle">
+            <title id="fcTitle">Gráfico con datos sintéticos: tres años de incidentes mensuales y la previsión del año siguiente</title>
+            <rect class="d-bar" x="0" y="0" width="400" height="250" rx="16"/>
+            <text class="d-t" x="16" y="26" lang="es">Incidentes al mes</text><text class="d-t" x="16" y="26" lang="en">Incidents per month</text>
+            <line class="c-grid" x1="44" y1="200.0" x2="384" y2="200.0"/><text class="c-ax" x="36" y="204.0" text-anchor="end">20</text>
+            <line class="c-grid" x1="44" y1="150.0" x2="384" y2="150.0"/><text class="c-ax" x="36" y="154.0" text-anchor="end">40</text>
+            <line class="c-grid" x1="44" y1="100.0" x2="384" y2="100.0"/><text class="c-ax" x="36" y="104.0" text-anchor="end">60</text>
+            <line class="c-grid" x1="44" y1="50.0" x2="384" y2="50.0"/><text class="c-ax" x="36" y="54.0" text-anchor="end">80</text>
+            <line class="c-div" x1="300.8" y1="46" x2="300.8" y2="200"/>
+            <text class="c-ax" x="83.8" y="216" text-anchor="middle" lang="es">Año 1</text><text class="c-ax" x="83.8" y="216" text-anchor="middle" lang="en">Year 1</text>
+            <text class="c-ax" x="170.6" y="216" text-anchor="middle" lang="es">Año 2</text><text class="c-ax" x="170.6" y="216" text-anchor="middle" lang="en">Year 2</text>
+            <text class="c-ax" x="257.4" y="216" text-anchor="middle" lang="es">Año 3</text><text class="c-ax" x="257.4" y="216" text-anchor="middle" lang="en">Year 3</text>
+            <text class="c-ax" x="344.2" y="216" text-anchor="middle" lang="es">Previsión</text><text class="c-ax" x="344.2" y="216" text-anchor="middle" lang="en">Forecast</text>
+            <polygon class="c-band" points="297.2,141.7 304.4,124.8 311.7,115.4 318.9,103.4 326.1,91.3 333.4,81.9 340.6,77.2 347.8,77.8 355.1,83.1 362.3,91.0 369.5,99.0 376.8,104.3 384.0,104.9 384.0,149.9 376.8,146.8 369.5,139.0 362.3,128.5 355.1,118.1 347.8,110.3 340.6,107.2 333.4,109.4 326.1,116.3 318.9,125.9 311.7,135.4 304.4,142.3"/>
+            <polyline class="c-hist" points="44.0,165.1 51.2,159.8 58.5,141.0 65.7,139.4 72.9,123.9 80.2,123.1 87.4,130.0 94.6,129.3 101.9,146.0 109.1,148.9 116.3,161.2 123.6,162.7 130.8,153.9 138.0,139.4 145.3,139.8 152.5,127.4 159.7,112.8 167.0,104.2 174.2,112.0 181.4,121.5 188.7,121.4 195.9,145.5 203.1,139.0 210.4,150.0 217.6,148.8 224.9,141.1 232.1,127.3 239.3,108.3 246.6,110.4 253.8,100.5 261.0,101.5 268.3,112.2 275.5,118.6 282.7,135.6 290.0,142.2 297.2,141.7"/>
+            <polyline class="c-fc" points="297.2,141.7 304.4,133.5 311.7,125.4 318.9,114.6 326.1,103.8 333.4,95.7 340.6,92.2 347.8,94.1 355.1,100.6 362.3,109.8 369.5,119.0 376.8,125.5 384.0,127.4"/>
+            <text class="c-ax" x="16" y="238" lang="es">Datos sintéticos de un centro ficticio</text><text class="c-ax" x="16" y="238" lang="en">Synthetic data for a fictitious centre</text>
+          </svg>
+        </div>
         </article>
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
