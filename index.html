@@ -88,6 +88,17 @@
   .contact h2 { font-size: clamp(2.5rem, 7vw, 4.5rem); max-width: 12ch; }
   .contact .links { font-size: 1.35rem; }
 
+  .shot.has-img { border: 0; padding: 0; aspect-ratio: auto; display: block; }
+  .shot.has-img .todo { display: none; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 1.25rem; }
+  .diagram { grid-column: 2; grid-row: 2 / span 3; align-self: start; }
+  .diagram svg { display: block; width: 100%; height: auto; }
+  .diagram text { font-family: inherit; fill: var(--ink); }
+  .d-line { stroke: var(--circle); stroke-width: 4; }
+  .d-dot { fill: var(--circle); }
+  .d-bar { fill: var(--cream); }
+  .d-t { font-weight: 900; font-size: 16px; letter-spacing: -0.03em; }
+  .d-s { font-size: 13px; }
   .todo { border-bottom: 2px dashed currentColor; }
 
   @media (max-width: 760px) {
@@ -98,6 +109,7 @@
     .head { margin-bottom: 1.75rem; }
     .project { grid-template-columns: 1fr; padding: 1.75rem; border-radius: 1.75rem; }
     .shot { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
+    .diagram { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
     .row { grid-template-columns: 1fr; }
     .tools { grid-template-columns: 1fr; }
   }
@@ -119,7 +131,7 @@
       <ul class="links">
         <li><a href="mailto:albagiro21@gmail.com">albagiro21@gmail.com</a></li>
         <li><a href="https://github.com/albagiro21">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/albagiro21/">LinkedIn</a></li>
+        <li><span class="todo">LinkedIn</span></li>
       </ul>
     </div>
     <svg class="cluster" viewBox="0 0 200 200" aria-hidden="true">
@@ -143,7 +155,7 @@
           <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 300 descripciones históricas y propone acciones basadas en ellos. Los embeddings y la búsqueda corren en local.</p>
           <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 300 historical descriptions and suggests actions grounded in them. Embeddings and retrieval run locally.</p>
           <p class="stack">RAG, ChromaDB, Ollama, Dash, Python</p>
-          <div class="shot"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
+          <div class="shot"><img src="img/asistente-incidentes.png" alt="Captura del asistente de incidentes" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
         </article>
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
@@ -151,7 +163,7 @@
           <p lang="es">Aplicación de varias páginas sobre un backend MySQL y Laravel. Un LLM local resume los datos de cada página. Desplegada con Docker detrás de Traefik, con inicio de sesión único.</p>
           <p lang="en">A multi-page application on a MySQL and Laravel backend. A local LLM summarises the data on each page. Deployed with Docker behind Traefik, with single sign-on.</p>
           <p class="stack">Dash, MySQL, Ollama, Docker, Traefik, Authelia</p>
-          <div class="shot"><span class="todo"><span lang="es">Captura anonimizada</span><span lang="en">Anonymised screenshot</span></span></div>
+          <div class="shot"><img src="img/app-control-calidad.png" alt="Captura de la aplicación de control de calidad" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Captura anonimizada</span><span lang="en">Anonymised screenshot</span></span></div>
         </article>
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
@@ -159,7 +171,7 @@
           <p lang="es">Pipelines de series temporales (Holt-Winters) que generan una previsión para cada centro sanitario. Corregí un desfase de un mes cambiando la lógica por posición de fila a lógica por fecha.</p>
           <p lang="en">Time-series pipelines (Holt-Winters) that produce a forecast for each healthcare centre. I fixed a one-month offset by replacing row-position logic with date-based logic.</p>
           <p class="stack">Python, SQL</p>
-          <div class="shot"><span class="todo"><span lang="es">Gráfico con datos sintéticos</span><span lang="en">Chart with synthetic data</span></span></div>
+          <div class="shot"><img src="img/prevision-centros.png" alt="Gráfico de previsión por centro" hidden onload="this.hidden=false;this.parentNode.classList.add('has-img')" onerror="this.remove()"><span class="todo"><span lang="es">Gráfico con datos sintéticos</span><span lang="en">Chart with synthetic data</span></span></div>
         </article>
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
@@ -167,7 +179,28 @@
           <p lang="es">Lee ficheros CSV y Excel de origen, calcula los indicadores con pandas en dos etapas (extracción y transformación) y sube el resultado a una base de datos Supabase.</p>
           <p lang="en">Reads source CSV and Excel files, computes the indicators with pandas in two stages (extraction and transformation), and uploads the result to a Supabase database.</p>
           <p class="stack">Python, pandas, Supabase (PostgreSQL)</p>
-          <div class="shot"><span class="todo"><span lang="es">Esquema del pipeline</span><span lang="en">Pipeline diagram</span></span></div>
+          <div class="diagram">
+          <svg viewBox="0 0 400 274" role="img" aria-labelledby="etlTitle">
+            <title id="etlTitle">Esquema del pipeline: ficheros de origen, extracción, transformación y carga</title>
+            <line class="d-line" x1="16" y1="26" x2="16" y2="248"/>
+            <circle class="d-dot" cx="16" cy="26" r="11"/>
+            <rect class="d-bar" x="44" y="0" width="356" height="52" rx="16"/>
+            <text class="d-t" x="62" y="23" lang="es">Ficheros de origen</text><text class="d-t" x="62" y="23" lang="en">Source files</text>
+            <text class="d-s" x="62" y="41" lang="es">CSV y Excel</text><text class="d-s" x="62" y="41" lang="en">CSV and Excel</text>
+            <circle class="d-dot" cx="16" cy="100" r="11"/>
+            <rect class="d-bar" x="44" y="74" width="356" height="52" rx="16"/>
+            <text class="d-t" x="62" y="97" lang="es">Extracción</text><text class="d-t" x="62" y="97" lang="en">Extraction</text>
+            <text class="d-s" x="62" y="115" lang="es">Lee los ficheros a tablas de pandas</text><text class="d-s" x="62" y="115" lang="en">Reads the files into pandas tables</text>
+            <circle class="d-dot" cx="16" cy="174" r="11"/>
+            <rect class="d-bar" x="44" y="148" width="356" height="52" rx="16"/>
+            <text class="d-t" x="62" y="171" lang="es">Transformación</text><text class="d-t" x="62" y="171" lang="en">Transformation</text>
+            <text class="d-s" x="62" y="189" lang="es">Calcula los indicadores</text><text class="d-s" x="62" y="189" lang="en">Computes the indicators</text>
+            <circle class="d-dot" cx="16" cy="248" r="11"/>
+            <rect class="d-bar" x="44" y="222" width="356" height="52" rx="16"/>
+            <text class="d-t" x="62" y="245" lang="es">Carga</text><text class="d-t" x="62" y="245" lang="en">Load</text>
+            <text class="d-s" x="62" y="263" lang="es">Sube el resultado a Supabase</text><text class="d-s" x="62" y="263" lang="en">Uploads the result to Supabase</text>
+          </svg>
+        </div>
         </article>
     </div>
   </section>
@@ -204,10 +237,11 @@
   </section>
 
   <section class="contact">
+    <div class="head"><h2><span lang="es">Busco un puesto de datos, remoto o híbrido</span><span lang="en">Looking for a data role, remote or hybrid</span></h2><div class="dots" aria-hidden="true"><span></span><span></span></div></div>
     <ul class="links">
       <li><a href="mailto:albagiro21@gmail.com">albagiro21@gmail.com</a></li>
       <li><a href="https://github.com/albagiro21">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/albagiro21/">LinkedIn</a></li>
+      <li><span class="todo">LinkedIn</span></li>
     </ul>
   </section>
 </div>
