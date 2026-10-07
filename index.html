@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alba, ingeniera de datos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF; --ink: #000000; --muted: #5F5F5F; --rule: #D9D9D9; --fill: #F2F2F2;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #000000; --ink: #FFFFFF; --muted: #A3A3A3; --rule: #333333; --fill: #1A1A1A; }
+  }
+  :root[data-theme="dark"] { --bg: #000000; --ink: #FFFFFF; --muted: #A3A3A3; --rule: #333333; --fill: #1A1A1A; }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem; line-height: 1.55;
+  }
+  html[data-lang="es"] [lang="en"], html[data-lang="en"] [lang="es"] { display: none !important; }
+  .wrap { max-width: 58rem; margin: 0 auto; padding: 0 1.5rem 5rem; }
+  a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  p { margin: 0 0 0.9rem; max-width: 38rem; }
+
+  .top { display: flex; justify-content: flex-end; padding: 1.25rem 0 0; }
+  .lang-btn { font: inherit; font-size: 0.95rem; color: var(--ink); background: none; border: 1px solid var(--ink); padding: 0.25rem 0.8rem; cursor: pointer; }
+  .lang-btn:hover { background: var(--ink); color: var(--bg); }
+
+  /* Sobre mí */
+  .about { padding: 3.5rem 0 3rem; }
+  .about h1 { font-weight: 600; font-size: clamp(2.5rem, 7vw, 4.25rem); line-height: 1; letter-spacing: -0.03em; margin: 0; }
+  .about .role { font-size: 1.25rem; color: var(--muted); margin: 0.6rem 0 2rem; }
+  .about .bio { font-size: 1.2rem; line-height: 1.5; max-width: 40rem; }
+  .links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.75rem; padding: 0; margin: 1.75rem 0 0; }
+
+  /* Secciones: título a la izquierda, contenido a la derecha */
+  section.block { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0 2rem; border-top: 1px solid var(--ink); padding: 1.5rem 0 3rem; }
+  section.block > h2 { font-size: 1.0625rem; font-weight: 600; margin: 0; }
+
+  .project { padding: 0 0 1.75rem; }
+  .project + .project { border-top: 1px solid var(--rule); padding-top: 1.75rem; }
+  .project:last-child { padding-bottom: 0; }
+  .project h3 { font-size: 1.3rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; margin: 0 0 0.6rem; max-width: 34rem; }
+  .project .stack { color: var(--muted); font-size: 0.95rem; }
+  .shot { margin-top: 0.5rem; max-width: 26rem; aspect-ratio: 16 / 9; border: 1px dashed var(--muted); display: grid; place-items: center; text-align: center; padding: 1rem; font-size: 0.95rem; }
+
+  .rows { margin: 0; display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 0.9rem 1.5rem; }
+  .rows dt { color: var(--muted); }
+  .rows dd { margin: 0; }
+  .rows dd small { display: block; color: var(--muted); font-size: 0.95rem; }
+  .rows.wide { grid-template-columns: 13rem minmax(0, 1fr); }
+
+  .todo { background: var(--fill); border-bottom: 1px dashed var(--ink); padding: 0 0.3em; }
+
+  @media (max-width: 720px) {
+    section.block { grid-template-columns: 1fr; }
+    section.block > h2 { margin-bottom: 1.25rem; }
+    .rows, .rows.wide { grid-template-columns: 1fr; gap: 0.15rem; }
+    .rows dd { margin-bottom: 0.9rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><button class="lang-btn" id="langBtn" type="button">English</button></div>
+
+  <header class="about">
+    <h1>Alba <span class="todo" style="font-size:0.4em;letter-spacing:0;font-weight:400;vertical-align:middle">apellidos</span></h1>
+    <p class="role"><span lang="es">Ingeniera de datos, Tarragona</span><span lang="en">Data engineer, Tarragona (Spain)</span></p>
+
+    <p class="bio" lang="es">Trabajo en el Departament de Salut de la Generalitat de Catalunya. Construyo los pipelines y paneles con los que se siguen los indicadores de calidad y seguridad del paciente, y herramientas con LLM sobre esos mismos datos.</p>
+    <p class="bio" lang="en">I work at the Department of Health of the Government of Catalonia. I build the pipelines and dashboards used to track care-quality and patient-safety indicators, and LLM tools on top of the same data.</p>
+    <p class="bio" lang="es">Vengo de un doble grado en Ingeniería de Telecomunicaciones e Ingeniería Biomédica. Busco un puesto de datos, remoto o híbrido.</p>
+    <p class="bio" lang="en">My background is a dual degree in Telecommunications Engineering and Biomedical Engineering. I'm looking for a data role, remote or hybrid.</p>
+
+    <ul class="links">
+      <li><span class="todo">correo</span></li>
+      <li><span class="todo">LinkedIn</span></li>
+      <li><span class="todo">GitHub</span></li>
+    </ul>
+  </header>
+
+  <section class="block">
+    <h2><span lang="es">Proyectos</span><span lang="en">Projects</span></h2>
+    <div>
+      <article class="project">
+        <h3><span lang="es">Asistente que sugiere acciones de mejora ante un incidente</span><span lang="en">Assistant that suggests improvement actions for an incident</span></h3>
+        <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 300 descripciones históricas y propone acciones basadas en ellos. Los embeddings y la búsqueda corren en local.</p>
+        <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 300 historical descriptions and suggests actions grounded in them. Embeddings and retrieval run locally.</p>
+        <p class="stack">RAG, ChromaDB, Ollama, Dash, Python</p>
+        <div class="shot"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
+      </article>
+
+      <article class="project">
+        <h3><span lang="es">Aplicación web de control de calidad con resúmenes escritos por IA</span><span lang="en">Quality-control web app with AI-written summaries</span></h3>
+        <p lang="es">Aplicación de varias páginas sobre un backend MySQL y Laravel. Un LLM local resume los datos de cada página. Desplegada con Docker detrás de Traefik, con inicio de sesión único.</p>
+        <p lang="en">A multi-page application on a MySQL and Laravel backend. A local LLM summarises the data on each page. Deployed with Docker behind Traefik, with single sign-on.</p>
+        <p class="stack">Dash, MySQL, Ollama, Docker, Traefik, Authelia</p>
+        <div class="shot"><span class="todo"><span lang="es">Captura anonimizada</span><span lang="en">Anonymised screenshot</span></span></div>
+      </article>
+
+      <article class="project">
+        <h3><span lang="es">Previsión de incidentes y de cumplimiento de checklists por centro</span><span lang="en">Forecasting incidents and checklist completion per centre</span></h3>
+        <p lang="es">Pipelines de series temporales (Holt-Winters) que generan una previsión para cada centro sanitario. Corregí un desfase de un mes cambiando la lógica por posición de fila a lógica por fecha.</p>
+        <p lang="en">Time-series pipelines (Holt-Winters) that produce a forecast for each healthcare centre. I fixed a one-month offset by replacing row-position logic with date-based logic.</p>
+        <p class="stack">Python, SQL</p>
+        <div class="shot"><span class="todo"><span lang="es">Gráfico con datos sintéticos</span><span lang="en">Chart with synthetic data</span></span></div>
+      </article>
+
+      <article class="project">
+        <h3><span lang="es">ETL que calcula indicadores de calidad hospitalaria</span><span lang="en">ETL that computes hospital quality indicators</span></h3>
+        <p lang="es">Dos etapas, extracción y transformación, que convierten registros hospitalarios en indicadores listos para Power BI.</p>
+        <p lang="en">Two stages, extraction and transformation, that turn hospital records into indicators ready for Power BI.</p>
+        <p class="stack">Python, SQL, Power BI</p>
+        <div class="shot"><span class="todo"><span lang="es">Esquema del pipeline</span><span lang="en">Pipeline diagram</span></span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span lang="es">Experiencia</span><span lang="en">Experience</span></h2>
+    <dl class="rows">
+      <dt><span class="todo"><span lang="es">fechas</span><span lang="en">dates</span></span></dt>
+      <dd><span lang="es">Ingeniera de datos</span><span lang="en">Data Engineer</span><small>Departament de Salut, Generalitat de Catalunya (Institut Català de la Salut)</small></dd>
+      <dt><span class="todo"><span lang="es">fechas</span><span lang="en">dates</span></span></dt>
+      <dd><span class="todo"><span lang="es">puesto</span><span lang="en">role</span></span><small>Hospital Sant Joan de Déu</small></dd>
+      <dt><span class="todo"><span lang="es">fechas</span><span lang="en">dates</span></span></dt>
+      <dd><span lang="es">Ingeniera de datos júnior</span><span lang="en">Junior Data Engineer</span><small>Kamleon</small></dd>
+    </dl>
+  </section>
+
+  <section class="block">
+    <h2><span lang="es">Formación</span><span lang="en">Education</span></h2>
+    <dl class="rows">
+      <dt><span lang="es">Máster</span><span lang="en">M.Sc.</span></dt>
+      <dd>Universitat Rovira i Virgili<small><span lang="es">Trabajo final: marco regulatorio para la gobernanza del dato en entornos sanitarios</span><span lang="en">Thesis: a regulatory framework for data governance in healthcare environments</span></small></dd>
+      <dt><span lang="es">Doble grado</span><span lang="en">Dual B.Sc.</span></dt>
+      <dd><span lang="es">Ingeniería de Telecomunicaciones e Ingeniería Biomédica</span><span lang="en">Telecommunications Engineering and Biomedical Engineering</span><small>Universitat Rovira i Virgili</small></dd>
+    </dl>
+  </section>
+
+  <section class="block">
+    <h2><span lang="es">Herramientas</span><span lang="en">Tools</span></h2>
+    <dl class="rows wide">
+      <dt><span lang="es">Lenguajes y bases de datos</span><span lang="en">Languages and databases</span></dt>
+      <dd>Python, SQL (Oracle, MySQL, PostgreSQL)</dd>
+      <dt><span lang="es">Nube y almacenes</span><span lang="en">Cloud and warehouses</span></dt>
+      <dd>AWS (S3, Glue, Lambda, Redshift), Snowflake</dd>
+      <dt><span lang="es">Visualización</span><span lang="en">Visualisation</span></dt>
+      <dd>Power BI, DAX, Dash</dd>
+      <dt><span lang="es">Servicios y despliegue</span><span lang="en">Services and deployment</span></dt>
+      <dd>Docker, FastAPI, Flask, Git, CI/CD</dd>
+      <dt>LLM</dt>
+      <dd>RAG, Ollama, ChromaDB</dd>
+      <dt><span lang="es">Datos de salud</span><span lang="en">Health data</span></dt>
+      <dd>OMOP CDM</dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('langBtn');
+    function setLang(l) {
+      root.setAttribute('data-lang', l); root.setAttribute('lang', l);
+      btn.textContent = l === 'es' ? 'English' : 'Español';
+      document.title = l === 'es' ? 'Alba, ingeniera de datos' : 'Alba, data engineer';
+      try { localStorage.setItem('lang', l); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    setLang(saved === 'en' ? 'en' : 'es');
+    btn.addEventListener('click', function () { setLang(root.getAttribute('data-lang') === 'es' ? 'en' : 'es'); });
+  })();
+</script>
+</body>
+</html>
