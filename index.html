@@ -99,6 +99,8 @@
   .d-bar { fill: var(--cream); }
   .d-t { font-weight: 900; font-size: 16px; letter-spacing: -0.03em; }
   .d-s { font-size: 13px; }
+  .d-frame { fill: none; stroke: var(--cream); stroke-width: 1.5; stroke-dasharray: 5 5; }
+  .diagram .d-l { fill: var(--cream); font-weight: 700; font-size: 13px; }
   .todo { border-bottom: 2px dashed currentColor; }
 
   @media (max-width: 760px) {
@@ -178,29 +180,31 @@
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
           <h3><span lang="es">ETL que calcula indicadores de seguridad del paciente y los publica en una base de datos en la nube</span><span lang="en">ETL that computes patient-safety indicators and publishes them to a cloud database</span></h3>
-          <p lang="es">Pipeline que descarga de un servidor remoto los volcados de la base de datos (CSV y Excel), calcula los indicadores con pandas y carga el resultado en Supabase.</p>
-          <p lang="en">Pipeline that downloads the database dumps (CSV and Excel) from a remote server, computes the indicators with pandas, and loads the result into Supabase.</p>
-          <p class="stack">Python, pandas, Supabase (PostgreSQL)</p>
+          <p lang="es">Pipeline que descarga de un servidor remoto los volcados de la base de datos (CSV y Excel), calcula los indicadores con pandas y carga el resultado en Supabase. Se ejecuta de forma automática en un contenedor Docker programado con cron.</p>
+          <p lang="en">Pipeline that downloads the database dumps (CSV and Excel) from a remote server, computes the indicators with pandas, and loads the result into Supabase. It runs automatically in a Docker container scheduled with cron.</p>
+          <p class="stack">Python, pandas, Docker, cron, Supabase (PostgreSQL)</p>
           <div class="diagram">
-          <svg viewBox="0 0 400 274" role="img" aria-labelledby="etlTitle">
-            <title id="etlTitle">Esquema del pipeline: volcados en un servidor remoto, extracción, transformación y carga</title>
-            <line class="d-line" x1="16" y1="26" x2="16" y2="248"/>
-            <circle class="d-dot" cx="16" cy="26" r="11"/>
-            <rect class="d-bar" x="44" y="0" width="356" height="52" rx="16"/>
-            <text class="d-t" x="62" y="23" lang="es">Volcados de la base de datos</text><text class="d-t" x="62" y="23" lang="en">Database dumps</text>
-            <text class="d-s" x="62" y="41" lang="es">CSV y Excel en un servidor remoto</text><text class="d-s" x="62" y="41" lang="en">CSV and Excel on a remote server</text>
-            <circle class="d-dot" cx="16" cy="100" r="11"/>
-            <rect class="d-bar" x="44" y="74" width="356" height="52" rx="16"/>
-            <text class="d-t" x="62" y="97" lang="es">Extracción</text><text class="d-t" x="62" y="97" lang="en">Extraction</text>
-            <text class="d-s" x="62" y="115" lang="es">Descarga los ficheros y los lee con pandas</text><text class="d-s" x="62" y="115" lang="en">Downloads the files and reads them with pandas</text>
-            <circle class="d-dot" cx="16" cy="174" r="11"/>
-            <rect class="d-bar" x="44" y="148" width="356" height="52" rx="16"/>
-            <text class="d-t" x="62" y="171" lang="es">Transformación</text><text class="d-t" x="62" y="171" lang="en">Transformation</text>
-            <text class="d-s" x="62" y="189" lang="es">Calcula los indicadores</text><text class="d-s" x="62" y="189" lang="en">Computes the indicators</text>
-            <circle class="d-dot" cx="16" cy="248" r="11"/>
-            <rect class="d-bar" x="44" y="222" width="356" height="52" rx="16"/>
-            <text class="d-t" x="62" y="245" lang="es">Carga</text><text class="d-t" x="62" y="245" lang="en">Load</text>
-            <text class="d-s" x="62" y="263" lang="es">Carga el resultado en Supabase</text><text class="d-s" x="62" y="263" lang="en">Loads the result into Supabase</text>
+          <svg viewBox="0 0 400 306" role="img" aria-labelledby="etlTitle">
+            <title id="etlTitle">Esquema del pipeline: volcados en un servidor remoto y, dentro de un contenedor Docker programado con cron, extracción, transformación y carga</title>
+            <rect class="d-frame" x="1" y="74" width="398" height="231" rx="20"/>
+            <text class="d-l" x="48" y="96" lang="es">Contenedor Docker programado con cron</text><text class="d-l" x="48" y="96" lang="en">Docker container scheduled with cron</text>
+            <line class="d-line" x1="20" y1="26" x2="20" y2="266"/>
+            <circle class="d-dot" cx="20" cy="26" r="11"/>
+            <rect class="d-bar" x="48" y="0" width="352" height="52" rx="16"/>
+            <text class="d-t" x="66" y="23" lang="es">Volcados de la base de datos</text><text class="d-t" x="66" y="23" lang="en">Database dumps</text>
+            <text class="d-s" x="66" y="41" lang="es">CSV y Excel en un servidor remoto</text><text class="d-s" x="66" y="41" lang="en">CSV and Excel on a remote server</text>
+            <circle class="d-dot" cx="20" cy="134" r="11"/>
+            <rect class="d-bar" x="48" y="108" width="340" height="52" rx="16"/>
+            <text class="d-t" x="66" y="131" lang="es">Extracción</text><text class="d-t" x="66" y="131" lang="en">Extraction</text>
+            <text class="d-s" x="66" y="149" lang="es">Descarga los ficheros y los lee con pandas</text><text class="d-s" x="66" y="149" lang="en">Downloads the files and reads them with pandas</text>
+            <circle class="d-dot" cx="20" cy="200" r="11"/>
+            <rect class="d-bar" x="48" y="174" width="340" height="52" rx="16"/>
+            <text class="d-t" x="66" y="197" lang="es">Transformación</text><text class="d-t" x="66" y="197" lang="en">Transformation</text>
+            <text class="d-s" x="66" y="215" lang="es">Calcula los indicadores</text><text class="d-s" x="66" y="215" lang="en">Computes the indicators</text>
+            <circle class="d-dot" cx="20" cy="266" r="11"/>
+            <rect class="d-bar" x="48" y="240" width="340" height="52" rx="16"/>
+            <text class="d-t" x="66" y="263" lang="es">Carga</text><text class="d-t" x="66" y="263" lang="en">Load</text>
+            <text class="d-s" x="66" y="281" lang="es">Carga el resultado en Supabase</text><text class="d-s" x="66" y="281" lang="en">Loads the result into Supabase</text>
           </svg>
         </div>
         </article>
