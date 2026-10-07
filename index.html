@@ -5,192 +5,211 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alba Giró, ingeniera de datos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FFFFFF; --ink: #000000; --muted: #5F5F5F; --rule: #D9D9D9; --fill: #F2F2F2;
+    --bg: #D8EAF8; --ink: #48262D; --circle: #96A7CC; --cream: #F6F4E1;
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --bg: #000000; --ink: #FFFFFF; --muted: #A3A3A3; --rule: #333333; --fill: #1A1A1A; }
-  }
-  :root[data-theme="dark"] { --bg: #000000; --ink: #FFFFFF; --muted: #A3A3A3; --rule: #333333; --fill: #1A1A1A; }
   *, *::before, *::after { box-sizing: inherit; }
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1.0625rem; line-height: 1.55;
+    font-family: "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.125rem; line-height: 1.4; letter-spacing: -0.01em; overflow-x: hidden;
   }
   html[data-lang="es"] [lang="en"], html[data-lang="en"] [lang="es"] { display: none !important; }
-  .wrap { max-width: 58rem; margin: 0 auto; padding: 0 1.5rem 5rem; }
-  a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-  p { margin: 0 0 0.9rem; max-width: 38rem; }
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
+  a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible, .slider:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+  p { margin: 0 0 0.8rem; }
+  .ast { width: 60%; height: 60%; }
+  .badge { flex: none; width: 2.75rem; height: 2.75rem; border-radius: 50%; display: grid; place-items: center; background: var(--cream); color: var(--ink); }
+  .badge.dark { background: var(--ink); color: var(--cream); }
+  .dots { display: flex; flex: none; }
+  .dots span { width: 6rem; height: 6rem; border-radius: 50%; background: var(--circle); }
 
-  .top { display: flex; justify-content: flex-end; padding: 1.25rem 0 0; }
-  .lang-btn { font: inherit; font-size: 0.95rem; color: var(--ink); background: none; border: 1px solid var(--ink); padding: 0.25rem 0.8rem; cursor: pointer; }
-  .lang-btn:hover { background: var(--ink); color: var(--bg); }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 2rem 0 0; }
+  .top .who strong { display: block; font-weight: 900; letter-spacing: -0.03em; }
+  .lang-btn { font: inherit; font-weight: 700; color: var(--cream); background: var(--ink); border: 0; border-radius: 999px; padding: 0.5rem 1.2rem; cursor: pointer; }
+  .lang-btn:hover { background: var(--circle); color: var(--ink); }
 
-  /* Sobre mí */
-  .about { padding: 3.5rem 0 3rem; }
-  .about h1 { font-weight: 600; font-size: clamp(2.5rem, 7vw, 4.25rem); line-height: 1; letter-spacing: -0.03em; margin: 0; }
-  .about .role { font-size: 1.25rem; color: var(--muted); margin: 0.6rem 0 2rem; }
-  .about .bio { font-size: 1.2rem; line-height: 1.5; max-width: 40rem; }
-  .links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.75rem; padding: 0; margin: 1.75rem 0 0; }
+  /* Portada */
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 2rem; align-items: center; padding: 3rem 0 4rem; }
+  .hero h1 { font-weight: 900; font-size: clamp(5rem, 19vw, 13.5rem); line-height: 0.8; letter-spacing: -0.075em; margin: 0 0 2.5rem -0.05em; }
+  .hero h1 span { display: block; }
+  .hero .bio { font-size: 1.35rem; line-height: 1.25; max-width: 30rem; letter-spacing: -0.02em; }
+  .hero .cluster { width: 100%; height: auto; display: block; }
+  .links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding: 0; margin: 1.75rem 0 0; font-weight: 700; }
 
-  /* Secciones: título a la izquierda, contenido a la derecha */
-  section.block { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0 2rem; border-top: 1px solid var(--ink); padding: 1.5rem 0 3rem; }
-  section.block > h2 { font-size: 1.0625rem; font-weight: 600; margin: 0; }
+  /* Secciones */
+  section { padding: 3rem 0; }
+  .head { display: flex; justify-content: space-between; align-items: center; gap: 2rem; margin-bottom: 2.5rem; }
+  h2 { font-weight: 900; font-size: clamp(3rem, 9vw, 6.5rem); line-height: 0.85; letter-spacing: -0.065em; margin: 0; }
 
-  .proj { min-width: 0; }
-  .slider-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
-  .slider-nav .count { color: var(--muted); font-variant-numeric: tabular-nums; }
-  .slider-nav .arrows { display: flex; gap: 0.5rem; }
-  .slider-nav button { width: 2.75rem; height: 2.75rem; font: inherit; font-size: 1.25rem; line-height: 1; color: var(--ink); background: none; border: 1px solid var(--ink); cursor: pointer; }
-  .slider-nav button:hover:not(:disabled) { background: var(--ink); color: var(--bg); }
+  /* Proyectos */
+  .slider-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .slider-nav .count { font-weight: 900; font-size: 1.5rem; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .slider-nav .arrows { display: flex; gap: 0.6rem; }
+  .slider-nav button { width: 3.25rem; height: 3.25rem; border-radius: 50%; border: 0; background: var(--ink); color: var(--cream); font: inherit; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+  .slider-nav button:hover:not(:disabled) { background: var(--circle); color: var(--ink); }
   .slider-nav button:disabled { opacity: 0.25; cursor: default; }
-  .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+  .slider { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding-bottom: 1.5rem; }
   .slider::-webkit-scrollbar { display: none; }
-  .slider:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-  .project { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
   @media (prefers-reduced-motion: reduce) { .slider { scroll-behavior: auto; } }
-  .project h3 { font-size: 1.3rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; margin: 0 0 0.6rem; max-width: 34rem; }
-  .project .stack { color: var(--muted); font-size: 0.95rem; }
-  .shot { margin-top: 0.5rem; max-width: 26rem; aspect-ratio: 16 / 9; border: 1px dashed var(--muted); display: grid; place-items: center; text-align: center; padding: 1rem; font-size: 0.95rem; }
-
-  .rows { margin: 0; display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 0.9rem 1.5rem; }
-  .rows dt { color: var(--muted); }
-  .rows dd { margin: 0; }
-  .rows dd small { display: block; color: var(--muted); font-size: 0.95rem; }
-  .rows.wide { grid-template-columns: 13rem minmax(0, 1fr); }
-
-  .todo { background: var(--fill); border-bottom: 1px dashed var(--ink); padding: 0 0.3em; }
-
-  @media (max-width: 720px) {
-    section.block { grid-template-columns: 1fr; }
-    section.block > h2 { margin-bottom: 1.25rem; }
-    .rows, .rows.wide { grid-template-columns: 1fr; gap: 0.15rem; }
-    .rows dd { margin-bottom: 0.9rem; }
+  .project {
+    position: relative; flex: 0 0 100%; min-width: 0; scroll-snap-align: start;
+    background: var(--ink); color: var(--cream); border-radius: 2.25rem;
+    box-shadow: 0 1.1rem 0 var(--cream); padding: 2.5rem; 
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: 0.5rem 2.5rem; align-content: start;
   }
+  .project .badge { position: absolute; top: 1.5rem; right: 1.5rem; }
+  .project h3 { grid-column: 1 / -1; font-weight: 900; font-size: clamp(1.6rem, 3.6vw, 2.5rem); line-height: 1; letter-spacing: -0.04em; margin: 0 4rem 1.25rem 0; max-width: 40rem; }
+  .project p { grid-column: 1; max-width: 32rem; }
+  .project .stack { font-weight: 700; }
+  .shot { grid-column: 2; grid-row: 2 / span 3; align-self: start; aspect-ratio: 16 / 10; border: 2px dashed var(--cream); border-radius: 1.25rem; display: grid; place-items: center; text-align: center; padding: 1rem; font-size: 1rem; }
+
+  /* Experiencia y formación */
+  .row { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 0.25rem 2rem; padding: 1.25rem 0; border-top: 1.5px solid var(--ink); }
+  .row:last-child { border-bottom: 1.5px solid var(--ink); }
+  .row .when { font-weight: 900; letter-spacing: -0.03em; }
+  .row strong { font-weight: 900; font-size: 1.35rem; letter-spacing: -0.03em; }
+  .row p { margin: 0.5rem 0 0; max-width: 38rem; }
+
+  /* Herramientas */
+  .tools { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 3rem; }
+  .tools li { display: flex; gap: 1rem; align-items: flex-start; }
+  .tools strong { display: block; font-weight: 900; letter-spacing: -0.03em; }
+
+  /* Contacto */
+  .contact { padding-bottom: 5rem; }
+  .contact h2 { font-size: clamp(2.5rem, 7vw, 4.5rem); max-width: 12ch; }
+  .contact .links { font-size: 1.35rem; }
+
+  .todo { border-bottom: 2px dashed currentColor; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 2rem; }
+    .hero .cluster { max-width: 16rem; margin-left: auto; }
+    .dots span { width: 3.25rem; height: 3.25rem; }
+    h2 { font-size: clamp(2.4rem, 12vw, 4rem); }
+    .head { margin-bottom: 1.75rem; }
+    .project { grid-template-columns: 1fr; padding: 1.75rem; border-radius: 1.75rem; }
+    .shot { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
+    .row { grid-template-columns: 1fr; }
+    .tools { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) { .head .dots { display: none; } .hero h1 { font-size: 27vw; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><button class="lang-btn" id="langBtn" type="button">English</button></div>
+  <div class="top">
+    <div class="who"><strong>Alba Giró Subirats</strong><span lang="es">Ingeniera de datos, Tarragona</span><span lang="en">Data engineer, Tarragona (Spain)</span></div>
+    <button class="lang-btn" id="langBtn" type="button">English</button>
+  </div>
 
-  <header class="about">
-    <h1>Alba Giró Subirats</h1>
-    <p class="role"><span lang="es">Ingeniera de datos, Tarragona</span><span lang="en">Data engineer, Tarragona (Spain)</span></p>
+  <header class="hero">
+    <div>
+      <h1><span>alba</span><span>giró</span></h1>
+      <p class="bio" lang="es">Trabajo en el Institut Català de la Salut (ICS). Construyo los pipelines y paneles con los que se siguen los indicadores de calidad y seguridad del paciente, y herramientas con LLM sobre esos mismos datos.</p>
+      <p class="bio" lang="en">I work at the Catalan Health Institute (ICS). I build the pipelines and dashboards used to track care-quality and patient-safety indicators, and LLM tools on top of the same data.</p>
+      <ul class="links">
+        <li><a href="mailto:albagiro21@gmail.com">albagiro21@gmail.com</a></li>
+        <li><a href="https://github.com/albagiro21">GitHub</a></li>
+        <li><span class="todo">LinkedIn</span></li>
+      </ul>
+    </div>
+    <svg class="cluster" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="50" cy="50" r="50" fill="#96A7CC"/><circle cx="150" cy="50" r="50" fill="#96A7CC"/><circle cx="150" cy="150" r="50" fill="#96A7CC"/>
+    </svg>
+  </header>
 
-    <p class="bio" lang="es">Trabajo en el Institut Català de la Salut (ICS), en Tarragona. Construyo los pipelines y paneles con los que se siguen los indicadores de calidad y seguridad del paciente, y herramientas con LLM sobre esos mismos datos.</p>
-    <p class="bio" lang="en">I work at the Catalan Health Institute (ICS) in Tarragona. I build the pipelines and dashboards used to track care-quality and patient-safety indicators, and LLM tools on top of the same data.</p>
-    <p class="bio" lang="es">Soy ingeniera de Telecomunicaciones e ingeniera Biomédica, con un máster en Health Data Science. Busco un puesto de datos, remoto o híbrido.</p>
-    <p class="bio" lang="en">I hold degrees in Telecommunications Engineering and Biomedical Engineering, and an M.Sc. in Health Data Science. I'm looking for a data role, remote or hybrid.</p>
+  <section>
+    <div class="head"><h2><span lang="es">Proyectos</span><span lang="en">Projects</span></h2><div class="dots" aria-hidden="true"><span></span><span></span></div></div>
+    <div class="slider-nav">
+      <span class="count" id="projCount" aria-live="polite">1 / 4</span>
+      <span class="arrows">
+        <button type="button" id="projPrev">&larr;</button>
+        <button type="button" id="projNext">&rarr;</button>
+      </span>
+    </div>
+    <div class="slider" id="projSlider" tabindex="0">
+        <article class="project">
+          <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+          <h3><span lang="es">Asistente que sugiere acciones de mejora ante un incidente</span><span lang="en">Assistant that suggests improvement actions for an incident</span></h3>
+          <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 300 descripciones históricas y propone acciones basadas en ellos. Los embeddings y la búsqueda corren en local.</p>
+          <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 300 historical descriptions and suggests actions grounded in them. Embeddings and retrieval run locally.</p>
+          <p class="stack">RAG, ChromaDB, Ollama, Dash, Python</p>
+          <div class="shot"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
+        </article>
+        <article class="project">
+          <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+          <h3><span lang="es">Aplicación web de control de calidad con resúmenes escritos por IA</span><span lang="en">Quality-control web app with AI-written summaries</span></h3>
+          <p lang="es">Aplicación de varias páginas sobre un backend MySQL y Laravel. Un LLM local resume los datos de cada página. Desplegada con Docker detrás de Traefik, con inicio de sesión único.</p>
+          <p lang="en">A multi-page application on a MySQL and Laravel backend. A local LLM summarises the data on each page. Deployed with Docker behind Traefik, with single sign-on.</p>
+          <p class="stack">Dash, MySQL, Ollama, Docker, Traefik, Authelia</p>
+          <div class="shot"><span class="todo"><span lang="es">Captura anonimizada</span><span lang="en">Anonymised screenshot</span></span></div>
+        </article>
+        <article class="project">
+          <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+          <h3><span lang="es">Previsión de incidentes y de cumplimiento de checklists por centro</span><span lang="en">Forecasting incidents and checklist completion per centre</span></h3>
+          <p lang="es">Pipelines de series temporales (Holt-Winters) que generan una previsión para cada centro sanitario. Corregí un desfase de un mes cambiando la lógica por posición de fila a lógica por fecha.</p>
+          <p lang="en">Time-series pipelines (Holt-Winters) that produce a forecast for each healthcare centre. I fixed a one-month offset by replacing row-position logic with date-based logic.</p>
+          <p class="stack">Python, SQL</p>
+          <div class="shot"><span class="todo"><span lang="es">Gráfico con datos sintéticos</span><span lang="en">Chart with synthetic data</span></span></div>
+        </article>
+        <article class="project">
+          <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+          <h3><span lang="es">ETL que calcula indicadores de calidad hospitalaria</span><span lang="en">ETL that computes hospital quality indicators</span></h3>
+          <p lang="es">Dos etapas, extracción y transformación, que convierten registros hospitalarios en indicadores listos para Power BI.</p>
+          <p lang="en">Two stages, extraction and transformation, that turn hospital records into indicators ready for Power BI.</p>
+          <p class="stack">Python, SQL, Power BI</p>
+          <div class="shot"><span class="todo"><span lang="es">Esquema del pipeline</span><span lang="en">Pipeline diagram</span></span></div>
+        </article>
+    </div>
+  </section>
 
+  <section>
+    <div class="head"><h2><span lang="es">Experiencia</span><span lang="en">Experience</span></h2><div class="dots" aria-hidden="true"><span></span><span></span><span></span></div></div>
+    <div>
+      <div class="row"><div class="when"><span lang="es">oct 2025 – hoy</span><span lang="en">Oct 2025 – present</span></div><div><strong><span lang="es">Ingeniera de datos</span><span lang="en">Data Engineer</span></strong><div class="where">Institut Català de la Salut (ICS), Tarragona</div><p><span lang="es">Pipelines ETL sobre varias fuentes de datos, paneles de indicadores en Power BI y SAP, e informes automáticos con IA generativa.</span><span lang="en">ETL pipelines across several data sources, KPI dashboards in Power BI and SAP, and automated reporting with generative AI.</span></p></div></div>
+      <div class="row"><div class="when"><span lang="es">dic 2023 – nov 2025</span><span lang="en">Dec 2023 – Nov 2025</span></div><div><strong><span lang="es">Ingeniera de datos</span><span lang="en">Data Engineer</span></strong><div class="where">Hospital Sant Joan de Déu, Barcelona</div><p><span lang="es">Paneles de seguimiento en tiempo real y sistemas de indicadores. Modelos predictivos con machine learning y deep learning en un proyecto de investigación europeo multicéntrico.</span><span lang="en">Real-time monitoring dashboards and KPI reporting. Predictive models with machine learning and deep learning in a European multicentre research project.</span></p></div></div>
+      <div class="row"><div class="when"><span lang="es">jun 2023 – dic 2023</span><span lang="en">Jun 2023 – Dec 2023</span></div><div><strong><span lang="es">Ingeniera de datos júnior</span><span lang="en">Junior Data Engineer</span></strong><div class="where">Kamleon, Barcelona</div><p><span lang="es">Panel de producto en tiempo real, una aplicación full stack y un modelo predictivo de respuesta al tratamiento en pacientes con cáncer.</span><span lang="en">A real-time product dashboard, a full-stack application, and a predictive model of treatment response in cancer patients.</span></p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2><span lang="es">Formación</span><span lang="en">Education</span></h2></div>
+    <div>
+      <div class="row"><div class="when">2026</div><div><strong><span lang="es">Máster en Health Data Science</span><span lang="en">M.Sc. in Health Data Science</span></strong><div class="where"><span lang="es">Interuniversitario</span><span lang="en">Interuniversity</span> (URV, UB, UPC, UVic, UdG, UGA, BIB)</div></div></div>
+      <div class="row"><div class="when">2024</div><div><strong><span lang="es">Grado en Ingeniería de Telecomunicaciones</span><span lang="en">B.Sc. in Telecommunications Engineering</span></strong><div class="where">Universitat Rovira i Virgili</div></div></div>
+      <div class="row"><div class="when">2024</div><div><strong><span lang="es">Grado en Ingeniería Biomédica</span><span lang="en">B.Sc. in Biomedical Engineering</span></strong><div class="where">Universitat Rovira i Virgili</div></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2><span lang="es">Herramientas</span><span lang="en">Tools</span></h2><div class="dots" aria-hidden="true"><span></span><span></span></div></div>
+    <ul class="tools">
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong><span lang="es">Lenguajes y bases de datos</span><span lang="en">Languages and databases</span></strong><span>Python (Dash, NumPy, scikit-learn, SciPy), SQL, MySQL, PostgreSQL, Oracle, MongoDB</span></div></li>
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong><span lang="es">Nube y almacenes</span><span lang="en">Cloud and warehouses</span></strong><span>AWS (S3, Glue, Lambda, Redshift), Snowflake (Snowpark, Dynamic Tables, Streamlit)</span></div></li>
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong><span lang="es">Visualización</span><span lang="en">Visualisation</span></strong><span>Power BI, DAX, Tableau, Dash</span></div></li>
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong><span lang="es">Servicios y despliegue</span><span lang="en">Services and deployment</span></strong><span>Docker, FastAPI, Flask, Git, CI/CD</span></div></li>
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong>LLM</strong><span>RAG, Ollama, ChromaDB</span></div></li>
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong><span lang="es">Datos de salud</span><span lang="en">Health data</span></strong><span>OMOP CDM</span></div></li>
+      <li><span class="badge dark"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><div><strong><span lang="es">Idiomas</span><span lang="en">Languages</span></strong><span><span lang="es">Castellano y catalán nativos, inglés C1</span><span lang="en">Native Spanish and Catalan, English C1</span></span></div></li>
+    </ul>
+  </section>
+
+  <section class="contact">
+    <div class="head"><h2><span lang="es">Busco un puesto de datos, remoto o híbrido</span><span lang="en">Looking for a data role, remote or hybrid</span></h2><div class="dots" aria-hidden="true"><span></span><span></span></div></div>
     <ul class="links">
       <li><a href="mailto:albagiro21@gmail.com">albagiro21@gmail.com</a></li>
       <li><a href="https://github.com/albagiro21">GitHub</a></li>
       <li><span class="todo">LinkedIn</span></li>
     </ul>
-  </header>
-
-  <section class="block">
-    <h2><span lang="es">Proyectos</span><span lang="en">Projects</span></h2>
-    <div class="proj">
-      <div class="slider-nav">
-        <span class="count" id="projCount" aria-live="polite">1 / 4</span>
-        <span class="arrows">
-          <button type="button" id="projPrev">&larr;</button>
-          <button type="button" id="projNext">&rarr;</button>
-        </span>
-      </div>
-      <div class="slider" id="projSlider" tabindex="0">
-      <article class="project">
-        <h3><span lang="es">Asistente que sugiere acciones de mejora ante un incidente</span><span lang="en">Assistant that suggests improvement actions for an incident</span></h3>
-        <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 300 descripciones históricas y propone acciones basadas en ellos. Los embeddings y la búsqueda corren en local.</p>
-        <p lang="en">When a patient-safety incident is reported, it finds the most similar cases among 300 historical descriptions and suggests actions grounded in them. Embeddings and retrieval run locally.</p>
-        <p class="stack">RAG, ChromaDB, Ollama, Dash, Python</p>
-        <div class="shot"><span class="todo"><span lang="es">Captura anonimizada o enlace a la demo</span><span lang="en">Anonymised screenshot or demo link</span></span></div>
-      </article>
-
-      <article class="project">
-        <h3><span lang="es">Aplicación web de control de calidad con resúmenes escritos por IA</span><span lang="en">Quality-control web app with AI-written summaries</span></h3>
-        <p lang="es">Aplicación de varias páginas sobre un backend MySQL y Laravel. Un LLM local resume los datos de cada página. Desplegada con Docker detrás de Traefik, con inicio de sesión único.</p>
-        <p lang="en">A multi-page application on a MySQL and Laravel backend. A local LLM summarises the data on each page. Deployed with Docker behind Traefik, with single sign-on.</p>
-        <p class="stack">Dash, MySQL, Ollama, Docker, Traefik, Authelia</p>
-        <div class="shot"><span class="todo"><span lang="es">Captura anonimizada</span><span lang="en">Anonymised screenshot</span></span></div>
-      </article>
-
-      <article class="project">
-        <h3><span lang="es">Previsión de incidentes y de cumplimiento de checklists por centro</span><span lang="en">Forecasting incidents and checklist completion per centre</span></h3>
-        <p lang="es">Pipelines de series temporales (Holt-Winters) que generan una previsión para cada centro sanitario. Corregí un desfase de un mes cambiando la lógica por posición de fila a lógica por fecha.</p>
-        <p lang="en">Time-series pipelines (Holt-Winters) that produce a forecast for each healthcare centre. I fixed a one-month offset by replacing row-position logic with date-based logic.</p>
-        <p class="stack">Python, SQL</p>
-        <div class="shot"><span class="todo"><span lang="es">Gráfico con datos sintéticos</span><span lang="en">Chart with synthetic data</span></span></div>
-      </article>
-
-      <article class="project">
-        <h3><span lang="es">ETL que calcula indicadores de calidad hospitalaria</span><span lang="en">ETL that computes hospital quality indicators</span></h3>
-        <p lang="es">Dos etapas, extracción y transformación, que convierten registros hospitalarios en indicadores listos para Power BI.</p>
-        <p lang="en">Two stages, extraction and transformation, that turn hospital records into indicators ready for Power BI.</p>
-        <p class="stack">Python, SQL, Power BI</p>
-        <div class="shot"><span class="todo"><span lang="es">Esquema del pipeline</span><span lang="en">Pipeline diagram</span></span></div>
-      </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <h2><span lang="es">Experiencia</span><span lang="en">Experience</span></h2>
-    <dl class="rows">
-      <dt><span lang="es">oct 2025 – hoy</span><span lang="en">Oct 2025 – present</span></dt>
-      <dd><span lang="es">Ingeniera de datos</span><span lang="en">Data Engineer</span><small>Institut Català de la Salut (ICS), Tarragona</small>
-        <small><span lang="es">Pipelines ETL sobre varias fuentes de datos, paneles de indicadores en Power BI y SAP, e informes automáticos con IA generativa.</span><span lang="en">ETL pipelines across several data sources, KPI dashboards in Power BI and SAP, and automated reporting with generative AI.</span></small></dd>
-      <dt><span lang="es">dic 2023 – nov 2025</span><span lang="en">Dec 2023 – Nov 2025</span></dt>
-      <dd><span lang="es">Ingeniera de datos</span><span lang="en">Data Engineer</span><small>Hospital Sant Joan de Déu, Barcelona</small>
-        <small><span lang="es">Paneles de seguimiento en tiempo real y sistemas de indicadores. Modelos predictivos con machine learning y deep learning en un proyecto de investigación europeo multicéntrico.</span><span lang="en">Real-time monitoring dashboards and KPI reporting. Predictive models with machine learning and deep learning in a European multicentre research project.</span></small></dd>
-      <dt><span lang="es">jun 2023 – dic 2023</span><span lang="en">Jun 2023 – Dec 2023</span></dt>
-      <dd><span lang="es">Ingeniera de datos júnior</span><span lang="en">Junior Data Engineer</span><small>Kamleon, Barcelona</small>
-        <small><span lang="es">Panel de producto en tiempo real, una aplicación full stack y un modelo predictivo de respuesta al tratamiento en pacientes con cáncer.</span><span lang="en">A real-time product dashboard, a full-stack application, and a predictive model of treatment response in cancer patients.</span></small></dd>
-    </dl>
-  </section>
-
-  <section class="block">
-    <h2><span lang="es">Formación</span><span lang="en">Education</span></h2>
-    <dl class="rows">
-      <dt>2026</dt>
-      <dd><span lang="es">Máster en Health Data Science</span><span lang="en">M.Sc. in Health Data Science</span><small><span lang="es">Interuniversitario</span><span lang="en">Interuniversity</span> (URV, UB, UPC, UVic, UdG, UGA, BIB)</small></dd>
-      <dt>2024</dt>
-      <dd><span lang="es">Grado en Ingeniería de Telecomunicaciones</span><span lang="en">B.Sc. in Telecommunications Engineering</span><small>Universitat Rovira i Virgili</small></dd>
-      <dt>2024</dt>
-      <dd><span lang="es">Grado en Ingeniería Biomédica</span><span lang="en">B.Sc. in Biomedical Engineering</span><small>Universitat Rovira i Virgili</small></dd>
-    </dl>
-  </section>
-
-  <section class="block">
-    <h2><span lang="es">Herramientas</span><span lang="en">Tools</span></h2>
-    <dl class="rows wide">
-      <dt><span lang="es">Lenguajes y bases de datos</span><span lang="en">Languages and databases</span></dt>
-      <dd>Python (Dash, NumPy, scikit-learn, SciPy), SQL, MySQL, PostgreSQL, Oracle, MongoDB</dd>
-      <dt><span lang="es">Nube y almacenes</span><span lang="en">Cloud and warehouses</span></dt>
-      <dd>AWS (S3, Glue, Lambda, Redshift), Snowflake (Snowpark, Dynamic Tables, Streamlit)</dd>
-      <dt><span lang="es">Visualización</span><span lang="en">Visualisation</span></dt>
-      <dd>Power BI, DAX, Tableau, Dash</dd>
-      <dt><span lang="es">Servicios y despliegue</span><span lang="en">Services and deployment</span></dt>
-      <dd>Docker, FastAPI, Flask, Git, CI/CD</dd>
-      <dt>LLM</dt>
-      <dd>RAG, Ollama, ChromaDB</dd>
-      <dt><span lang="es">Datos de salud</span><span lang="en">Health data</span></dt>
-      <dd>OMOP CDM</dd>
-    </dl>
-  </section>
-
-  <section class="block">
-    <h2><span lang="es">Idiomas</span><span lang="en">Languages</span></h2>
-    <p><span lang="es">Castellano y catalán nativos, inglés avanzado (C1).</span><span lang="en">Native Spanish and Catalan, advanced English (C1).</span></p>
   </section>
 </div>
 
@@ -200,16 +219,18 @@
     var sl = document.getElementById('projSlider'), prev = document.getElementById('projPrev'),
         next = document.getElementById('projNext'), count = document.getElementById('projCount');
     var total = sl.children.length;
+    function step() { return sl.clientWidth + (parseFloat(getComputedStyle(sl).columnGap) || 0); }
     function update() {
-      var i = Math.round(sl.scrollLeft / sl.clientWidth);
+      var i = Math.round(sl.scrollLeft / step());
       count.textContent = (i + 1) + ' / ' + total;
       prev.disabled = i <= 0; next.disabled = i >= total - 1;
     }
-    prev.addEventListener('click', function () { sl.scrollBy({ left: -sl.clientWidth }); });
-    next.addEventListener('click', function () { sl.scrollBy({ left: sl.clientWidth }); });
+    prev.addEventListener('click', function () { sl.scrollBy({ left: -step() }); });
+    next.addEventListener('click', function () { sl.scrollBy({ left: step() }); });
     sl.addEventListener('scroll', update);
     window.addEventListener('resize', update);
     update();
+
     function setLang(l) {
       root.setAttribute('data-lang', l); root.setAttribute('lang', l);
       btn.textContent = l === 'es' ? 'English' : 'Español';
