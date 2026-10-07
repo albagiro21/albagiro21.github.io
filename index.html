@@ -37,11 +37,11 @@
   .lang-btn:hover { background: var(--circle); color: var(--ink); }
 
   /* Portada */
-  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 2rem; align-items: center; padding: 3rem 0 4rem; }
-  .hero h1 { font-weight: 900; font-size: clamp(5rem, 19vw, 13.5rem); line-height: 0.8; letter-spacing: -0.075em; margin: 0 0 2.5rem -0.05em; }
+  .hero { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2rem 4.5rem; align-items: center; padding: 3rem 0 4rem; }
+  .hero h1 { font-weight: 900; font-size: clamp(5rem, 19vw, 13.5rem); line-height: 0.8; letter-spacing: -0.075em; margin: 0 0 0 -0.05em; }
   .hero h1 span { display: block; }
-  .hero .bio { font-size: 1.35rem; line-height: 1.25; max-width: 30rem; letter-spacing: -0.02em; }
-  .hero .cluster { width: 100%; height: auto; display: block; }
+  .hero .bio { font-size: 1.6rem; line-height: 1.2; max-width: 34rem; letter-spacing: -0.03em; }
+  .hero .intro .dots { margin-bottom: 1.75rem; }
   .links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding: 0; margin: 1.75rem 0 0; font-weight: 700; }
 
   /* Secciones */
@@ -103,9 +103,11 @@
   .diagram .d-l { fill: var(--cream); font-weight: 700; font-size: 13px; }
   .todo { border-bottom: 2px dashed currentColor; }
 
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; padding-top: 2rem; }
-    .hero .cluster { max-width: 16rem; margin-left: auto; }
+  }
+  @media (max-width: 760px) {
+    .hero .bio { font-size: 1.35rem; }
     .dots span { width: 3.25rem; height: 3.25rem; }
     h2 { font-size: clamp(2.4rem, 12vw, 4rem); }
     .head { margin-bottom: 1.75rem; }
@@ -126,8 +128,9 @@
   </div>
 
   <header class="hero">
-    <div>
-      <h1><span>alba</span><span>giró</span></h1>
+    <h1><span>alba</span><span>giró</span></h1>
+    <div class="intro">
+      <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
       <p class="bio" lang="es">Trabajo en el Institut Català de la Salut (ICS). Construyo los pipelines y paneles con los que se siguen los indicadores de calidad y seguridad del paciente, y herramientas con LLM sobre esos mismos datos.</p>
       <p class="bio" lang="en">I work at the Catalan Health Institute (ICS). I build the pipelines and dashboards used to track care-quality and patient-safety indicators, and LLM tools on top of the same data.</p>
       <ul class="links">
@@ -136,9 +139,6 @@
         <li><a href="https://linkedin.com/in/alba-giro-subirats">LinkedIn</a></li>
       </ul>
     </div>
-    <svg class="cluster" viewBox="0 0 200 200" aria-hidden="true">
-      <circle cx="50" cy="50" r="50" fill="#96A7CC"/><circle cx="150" cy="50" r="50" fill="#96A7CC"/><circle cx="150" cy="150" r="50" fill="#96A7CC"/>
-    </svg>
   </header>
 
   <section>
