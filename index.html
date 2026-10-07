@@ -45,9 +45,18 @@
   section.block { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0 2rem; border-top: 1px solid var(--ink); padding: 1.5rem 0 3rem; }
   section.block > h2 { font-size: 1.0625rem; font-weight: 600; margin: 0; }
 
-  .project { padding: 0 0 1.75rem; }
-  .project + .project { border-top: 1px solid var(--rule); padding-top: 1.75rem; }
-  .project:last-child { padding-bottom: 0; }
+  .proj { min-width: 0; }
+  .slider-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+  .slider-nav .count { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .slider-nav .arrows { display: flex; gap: 0.5rem; }
+  .slider-nav button { width: 2.75rem; height: 2.75rem; font: inherit; font-size: 1.25rem; line-height: 1; color: var(--ink); background: none; border: 1px solid var(--ink); cursor: pointer; }
+  .slider-nav button:hover:not(:disabled) { background: var(--ink); color: var(--bg); }
+  .slider-nav button:disabled { opacity: 0.25; cursor: default; }
+  .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+  .slider::-webkit-scrollbar { display: none; }
+  .slider:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+  .project { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
+  @media (prefers-reduced-motion: reduce) { .slider { scroll-behavior: auto; } }
   .project h3 { font-size: 1.3rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; margin: 0 0 0.6rem; max-width: 34rem; }
   .project .stack { color: var(--muted); font-size: 0.95rem; }
   .shot { margin-top: 0.5rem; max-width: 26rem; aspect-ratio: 16 / 9; border: 1px dashed var(--muted); display: grid; place-items: center; text-align: center; padding: 1rem; font-size: 0.95rem; }
@@ -90,7 +99,15 @@
 
   <section class="block">
     <h2><span lang="es">Proyectos</span><span lang="en">Projects</span></h2>
-    <div>
+    <div class="proj">
+      <div class="slider-nav">
+        <span class="count" id="projCount" aria-live="polite">1 / 4</span>
+        <span class="arrows">
+          <button type="button" id="projPrev">&larr;</button>
+          <button type="button" id="projNext">&rarr;</button>
+        </span>
+      </div>
+      <div class="slider" id="projSlider" tabindex="0">
       <article class="project">
         <h3><span lang="es">Asistente que sugiere acciones de mejora ante un incidente</span><span lang="en">Assistant that suggests improvement actions for an incident</span></h3>
         <p lang="es">Cuando se notifica un incidente de seguridad del paciente, busca los casos más parecidos entre 300 descripciones históricas y propone acciones basadas en ellos. Los embeddings y la búsqueda corren en local.</p>
@@ -122,6 +139,7 @@
         <p class="stack">Python, SQL, Power BI</p>
         <div class="shot"><span class="todo"><span lang="es">Esquema del pipeline</span><span lang="en">Pipeline diagram</span></span></div>
       </article>
+      </div>
     </div>
   </section>
 
@@ -179,10 +197,25 @@
 <script>
   (function () {
     var root = document.documentElement, btn = document.getElementById('langBtn');
+    var sl = document.getElementById('projSlider'), prev = document.getElementById('projPrev'),
+        next = document.getElementById('projNext'), count = document.getElementById('projCount');
+    var total = sl.children.length;
+    function update() {
+      var i = Math.round(sl.scrollLeft / sl.clientWidth);
+      count.textContent = (i + 1) + ' / ' + total;
+      prev.disabled = i <= 0; next.disabled = i >= total - 1;
+    }
+    prev.addEventListener('click', function () { sl.scrollBy({ left: -sl.clientWidth }); });
+    next.addEventListener('click', function () { sl.scrollBy({ left: sl.clientWidth }); });
+    sl.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    update();
     function setLang(l) {
       root.setAttribute('data-lang', l); root.setAttribute('lang', l);
       btn.textContent = l === 'es' ? 'English' : 'Español';
       document.title = l === 'es' ? 'Alba Giró, ingeniera de datos' : 'Alba Giró, data engineer';
+      prev.setAttribute('aria-label', l === 'es' ? 'Proyecto anterior' : 'Previous project');
+      next.setAttribute('aria-label', l === 'es' ? 'Proyecto siguiente' : 'Next project');
       try { localStorage.setItem('lang', l); } catch (e) {}
     }
     var saved = null;
