@@ -232,9 +232,9 @@
         <article class="project">
           <span class="badge"><svg class="ast" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
           <h3><span lang="es">Previsión de incidentes y de cumplimiento de checklists por centro</span><span lang="en">Forecasting incidents and checklist completion per centre</span></h3>
-          <p lang="es">Pipelines de series temporales (Holt-Winters) que generan una previsión para cada centro sanitario. Corregí un desfase de un mes cambiando la lógica por posición de fila a lógica por fecha.</p>
-          <p lang="en">Time-series pipelines (Holt-Winters) that produce a forecast for each healthcare centre. I fixed a one-month offset by replacing row-position logic with date-based logic.</p>
-          <p class="stack">Python, SQL</p>
+          <p lang="es">Pipelines Holt-Winters que prevén cada mes, por centro sanitario, las listas de verificación realizadas y los incidentes. Antes de pasarlos a producción se validaron con backtesting: entrenando con 2023–2025 y comparando con los datos reales de 2026, frente a un modelo ingenuo, un crecimiento simple y SARIMA. En las listas de verificación, Holt-Winters obtuvo el menor error (MAPE del 19 %, frente al 29 % del modelo ingenuo), en la práctica empatado con SARIMA pero más sencillo de mantener.</p>
+          <p lang="en">Holt-Winters pipelines that forecast, every month and for each healthcare centre, completed checklists and incidents. Before going to production they were validated by backtesting: training on 2023–2025 and comparing against real 2026 data, against a naive model, simple growth and SARIMA. For checklists, Holt-Winters had the lowest error (19% MAPE versus 29% for the naive model), in practice tied with SARIMA but simpler to maintain.</p>
+          <p class="stack">Python, pandas, statsmodels, SQL</p>
           <div class="diagram">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fcTitle">
             <title id="fcTitle">Gráfico con datos sintéticos: tres años de incidentes mensuales y la previsión del año siguiente</title>
